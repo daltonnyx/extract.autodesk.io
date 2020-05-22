@@ -50,7 +50,7 @@ var utils ={
 	writeFile: function (filename, content, enc, bRaw) {
 		return (new Promise (function (fulfill, reject) {
 			var pathname =path.dirname (filename) ;
-			utils.mkdirp (pathname)
+			mkdirp (pathname)
 				.then (function (pathname) {
 					fs.writeFile (filename, !bRaw && typeof content !== 'string' ? JSON.stringify (content) : content, enc, function (err) {
 						if ( err )
@@ -167,16 +167,6 @@ var utils ={
 		})) ;
 	},
 
-	mkdirp: function (pathname) {
-		return (new Promise (function (fulfill, reject) {
-			mkdirp (pathname, function (err) {
-				if ( err )
-					reject (err) ;
-				else
-					fulfill (pathname) ;
-			}) ;
-		})) ;
-	},
 
 	checkHost: function (req, domain) {
 		//return ( domain === '' || req.headers.referer === domain ) ;

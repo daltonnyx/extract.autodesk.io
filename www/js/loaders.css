@@ -19,9 +19,19 @@
 // by Cyrille Fauvel - Autodesk Developer Network (ADN)
 //
 */
+
+.content-form {
+	margin-top: 120px;
+}
+
+#tabs {
+	justify-content: space-between;
+}
+
 .modal-dialog {
 	position: relative; width: auto; /*margin: 10px;*/
 	/*background: #fff;*/ max-width: 100%; /*width: 650px;*/
+	pointer-events: initial !important;
 }
 .modal-body { position: relative; line-height: 1.42857143; }
 

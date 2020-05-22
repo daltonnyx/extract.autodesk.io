@@ -17,7 +17,9 @@
 // Forge Extractor
 // by Cyrille Fauvel - Autodesk Developer Network (ADN)
 //
-
+if (process.env.NODE_ENV !== 'production') {
+	require('dotenv').config();
+}
 // To avoid the EXDEV rename error, see http://stackoverflow.com/q/21071303/76173
 process.env.TMPDIR ='tmp' ;
 //process.env ['NODE_TLS_REJECT_UNAUTHORIZED'] ='0' ; // Ignore 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' authorization error

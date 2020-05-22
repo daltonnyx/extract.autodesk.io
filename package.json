@@ -58,11 +58,12 @@
 		"unirest": "*"
 	},
 	"devDependencies": {
+		"chai": "*",
+		"dotenv": "^8.2.0",
+		"expect.js": "*",
 		"mocha": "*",
 		"should": "*",
-		"supertest": "*",
-		"chai": "*",
-		"expect.js": "*"
+		"supertest": "*"
 	},
 	"optionalDependencies": {}
 }

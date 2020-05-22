@@ -108,7 +108,11 @@ module.exports =flow =function (temporaryFolder) {
         if ( validation == 'valid' ) {
             var chunkFilename =getChunkFilename (chunkNumber, identifier) ;
             // Save the chunk (TODO: OVERWRITE)
-            fs.rename (files [$.fileParameterName].path, chunkFilename, function () {
+            fs.copyFile (files [$.fileParameterName].path, chunkFilename, function (err ) {
+                if(err) {
+                    callback("file_move_error", null, null, null, null);
+                    return;
+                }
                 // Do we have all the chunks?
                 var currentTestChunk =1 ;
                 var numberOfChunks =Math.max (Math.floor (totalSize / (chunkSize * 1.0)), 1) ;

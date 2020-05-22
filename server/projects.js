@@ -36,7 +36,7 @@ var uploadToOSS =function (identifier) {
 			var stream =fs.createReadStream (utils.path ('tmp/' + json.name))
 				.on ('data', function (chunk) {
 					json.bytesPosted +=chunk.length ;
-					fs.writeFile (utils.data (identifier), JSON.stringify (json)) ;
+					fs.writeFile (utils.data (identifier), JSON.stringify (json), () => {}) ;
 				}) ;
 			var ObjectsApi =new ForgeSDK.ObjectsApi () ;
 			return (ObjectsApi.uploadObject (bucket, json.name, json.bytesRead, stream, {}, forgeToken.RW, forgeToken.RW.getCredentials ())) ;
@@ -44,6 +44,9 @@ var uploadToOSS =function (identifier) {
 		.then (function (response) {
 			response.body.key =identifier ;
 			return (utils.writeFile (utils.data (identifier), response.body)) ;
+		})
+		.catch((err) => {
+
 		})
 	) ;
 } ;
@@ -101,28 +104,25 @@ var submitProject =function (req, res) {
 			// close his browser before the translation complete - pull the manifest when another user comes
 			// online via the GET /api/results endpoint & the thumbnail whne we display the vignettes via the
 			// GET /api/results/:identifier/thumbnail endpoint
+			res
+				.json (req.body) ;
 		})
 		.catch (function (error) {
 			console.error (error) ;
+			res.status(500).end("Server internal error");
 		}) ;
 
 	// We submitted uploads and translation,
 	// no clue at this stage if they were successful or not
-	res
-		.json (req.body) ;
+	
 }
 
 router.post ('/projects', function (req, res) {
 	// Protect the endpoint from external usage.
 	if ( !utils.checkHost (req, config.domain) )
 		return (res.status (403). end ()) ;
-
-	reCAPTCHA (req.body.recaptcha, function (success) {
-		if ( success !== true )
-			return (res.status (401). end ()) ;
-
-		submitProject (req, res) ;
-	}) ;
+	submitProject (req, res) ;
+	
 }) ;
 
 // Get the uploading/translation progress

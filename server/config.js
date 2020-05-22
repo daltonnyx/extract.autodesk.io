@@ -30,9 +30,9 @@ var config ={
 	},
 	apiEndpoint: 'developer.api.autodesk.com',
 
-	bucket: 'extract-autodesk-io-2017',
+	bucket: 'stsbucket-1',
 	mailTo: '',
-	domain: process.env.NODE_ENV === 'production' ? 'https://extract.autodesk.io/' : 'http://localhost:3000/',
+	domain: process.env.NODE_ENV === 'production' ? 'https://extract.autodesk.io/' : 'http://localhost:3200/',
 
 	MJ_APIKEY_PUBLIC: process.env.MJ_APIKEY_PUBLIC || '<replace with your mailjet public key>',
 	MJ_APIKEY_PRIVATE: process.env.MJ_APIKEY_PRIVATE || '<replace with your mailjet private key>',
@@ -45,7 +45,7 @@ var config ={
 
 // Make sure it is a unique bucket name by using the public key
 var md5sum =crypto.createHash ('md5').update (config.credentials.client_id).digest ('hex') ;
-if ( md5sum !== 'e2d2cb3afdf3050238f0315c47a22be8' )
-	config.bucket +=config.credentials.client_id.toLowerCase () ;
+//if ( md5sum !== 'e2d2cb3afdf3050238f0315c47a22be8' )
+	//config.bucket +=config.credentials.client_id.toLowerCase () ;
 
 module.exports =config ;
